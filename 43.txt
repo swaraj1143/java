@@ -1,0 +1,77 @@
+43.	Create an Abstract class Processor with int member variable data  and method showData to display data value. Create abstract method process() to define processing of member data. 
+a.	Create a class  Factorial using abstract class Processor  to calculate and print factorial of a number by overriding the process method.
+b.	Create a class  Circle using abstract class Processor  to calculate and print area of a circle by overriding the process method
+ Ask user to enter choice (factorial or circle area).  Also ask data to work upon; Use Processor class reference to achieve this mechanism
+
+
+
+
+
+# Abstract Class and Inheritance in Java
+
+import java.util.Scanner;
+
+abstract class Processor {
+    int data;
+
+    Processor(int data) {
+        this.data = data;
+    }
+
+    void showData() {
+        System.out.println("Data: " + data);
+    }
+
+    abstract void process();
+}
+
+class Factorial extends Processor {
+
+    Factorial(int data) {
+        super(data);
+    }
+
+    @Override
+    void process() {
+        int result = 1;
+        for (int i = 1; i <= data; i++) {
+            result *= i;
+        }
+        System.out.println("Factorial of " + data + " is: " + result);
+    }
+}
+
+class Circle extends Processor {
+
+    Circle(int data) {
+        super(data);
+    }
+
+    @Override
+    void process() {
+        double area = Math.PI * data * data;
+        System.out.println("Area of circle with radius " + data + " is: " + area);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter choice (1 for Factorial, 2 for Circle Area): ");
+        int choice = scanner.nextInt();
+        System.out.println("Enter data: ");
+        int data = scanner.nextInt();
+
+        Processor processor;
+
+        if (choice == 1) {
+            processor = new Factorial(data);
+        } else {
+            processor = new Circle(data);
+        }
+
+        processor.showData();
+        processor.process();
+        scanner.close();
+    }
+}
